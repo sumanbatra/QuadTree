@@ -13,7 +13,7 @@ public class Colour {
 	}
 	
 	Colour(int rgb) {
-		this.alpha = (rgb & 0x00ff0000) >> 24;
+		this.alpha = (rgb & 0xff000000) >> 24;
 		this.red = (rgb & 0x00ff0000) >> 16;
 		this.green = (rgb & 0x0000ff00) >> 8;
 		this.blue  =  rgb & 0x000000ff;

@@ -17,8 +17,8 @@ public class QuadTreeMain {
 		
 		try {
 			
-			img1 = ImageIO.read(new File("/Users/ramkeerthyathinarayanan/Documents/Ram/Eclipse/QuadTree/src/door1024.png"));
-			img2 = ImageIO.read(new File("/Users/ramkeerthyathinarayanan/Documents/Ram/Eclipse/QuadTree/src/fruit.png"));
+			img1 = ImageIO.read(new File("./src/door1024.png"));
+			img2 = ImageIO.read(new File("./src/fruit.png"));
 			
 			int imageWidth1 = img1.getWidth();
 			int imageHeight1 = img1.getHeight();
@@ -53,7 +53,8 @@ public class QuadTreeMain {
 			
 			int baseNodeCount = QuadTree.baseNodeCount;
 			int count = QuadTree.count;
-			System.out.println(parentNode1);
+			
+			// System.out.println(parentNode1);
 			
 			int quadTreeHeight1 = MathematicalOperations.log(imageWidth1, 2) + 1;
 			System.out.println("The height of the quadtree 1: " + quadTreeHeight1);
@@ -69,18 +70,31 @@ public class QuadTreeMain {
 				}
 			}
 			
-			File outputfile = new File("image.jpg");
+			File outputfile = new File("imageavg" + 1 + ".jpg");
 			ImageIO.write(outputImage, "jpg", outputfile);
+			
+			BufferedImage outputImage2 = new BufferedImage(imageWidth1, imageHeight1, BufferedImage.TYPE_INT_RGB);
+			
+			for(int i = 0; i < imageWidth1; i++) {
+				for(int j = 0; j < imageHeight1; j++) {
+					outputImage2.setRGB(i, j, parentNode2.colour.getPixelColour());
+				}
+			}
+			
+			File outputfile2 = new File("imageavg" + 2 + ".jpg");
+			ImageIO.write(outputImage2, "jpg", outputfile2);
 			
 			quadtree.display(parentNode1, imageWidth1, imageHeight1, "image1");
 			quadtree.display(parentNode2, imageWidth1, imageHeight1, "image2");
 			
+			int level = 1;
+			
 			long startTime = System.nanoTime();
-			if(quadtree.compareQuadTree(parentNode1, parentNode2, 1, imageWidth1, imageHeight1)) {
-				System.out.println("The quadtree are same at level 1");
+			if(quadtree.compareQuadTree(parentNode1, parentNode2, level)) {
+				System.out.println("The quadtree are same at level " + level);
 			}
 			else {
-				System.out.println("The quadtree are not same at level 1");
+				System.out.println("The quadtree are not same at level " + level);
 			}
 			long endTime = System.nanoTime();
 			long duration = (endTime - startTime);
@@ -207,7 +221,7 @@ class QuadTree {
 		}
 	}
 	
-	public boolean compareQuadTree(QuadTreeNode quadtree1, QuadTreeNode quadtree2, int level, int width, int height) {
+	public boolean compareQuadTree(QuadTreeNode quadtree1, QuadTreeNode quadtree2, int level) {
 		if(quadtree1.children.size() > 0 && quadtree2.children.size() > 0) {
 			QuadTreeNode[] children1 = new QuadTreeNode[4];
 			QuadTreeNode[] children2 = new QuadTreeNode[4];
@@ -225,6 +239,15 @@ class QuadTree {
 			while(iterator.hasNext()) {
 				children2[k++] = (QuadTreeNode) iterator.next();
 			}
+			
+			if(level > 0) {
+				boolean child1 = compareQuadTree(children1[0], children2[0], level-1);
+				boolean child2 = compareQuadTree(children1[1], children2[1], level-1);
+				boolean child3 = compareQuadTree(children1[2], children2[2], level-1);
+				boolean child4 = compareQuadTree(children1[3], children2[3], level-1);
+				return (child1 && child2 && child3 && child4);
+			}
+			
 			
 			if(children1[0].getColour(children1[0].colour) != children2[0].getColour(children2[0].colour)) {
 				return false;
