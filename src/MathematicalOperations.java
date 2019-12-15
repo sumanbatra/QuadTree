@@ -1,3 +1,7 @@
+/**
+ * @author ramkeerthyathinarayanan
+ *
+ */
 
 public class MathematicalOperations {
 	public static int log(int x, int b) {
