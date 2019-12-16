@@ -23,7 +23,7 @@ public class QuadTreeMain {
 		
 		try {
 			
-			String image1_path = "./images/image1.png";
+			String image1_path = "./images/door1024.png";
 			String image2_path = "./images/image1.png";
 			
 			int scaledWidth = 1024;
@@ -74,6 +74,31 @@ public class QuadTreeMain {
 					new Coordinate(img2.getWidth(), img2.getHeight()), 
 					img1.getHeight(), 
 					img1.getWidth());
+			
+			BufferedImage outputImage = new BufferedImage(imageWidth1, imageHeight1, BufferedImage.TYPE_INT_RGB);
+			
+			for(int i = 0; i < imageWidth1; i++) {
+				for(int j = 0; j < imageHeight1; j++) {
+					outputImage.setRGB(i, j, parentNode1.colour.getPixelColour());
+				}
+			}
+			
+			File outputfile = new File("imageavg" + 1 + ".jpg");
+			ImageIO.write(outputImage, "jpg", outputfile);
+			
+			BufferedImage outputImage2 = new BufferedImage(imageWidth1, imageHeight1, BufferedImage.TYPE_INT_RGB);
+			
+			for(int i = 0; i < imageWidth1; i++) {
+				for(int j = 0; j < imageHeight1; j++) {
+					outputImage2.setRGB(i, j, parentNode2.colour.getPixelColour());
+				}
+			}
+			
+			File outputfile2 = new File("imageavg" + 2 + ".jpg");
+			ImageIO.write(outputImage2, "jpg", outputfile2);
+			
+			quadtree.display(parentNode1, imageWidth1, imageHeight1, "image1");
+			quadtree.display(parentNode2, imageWidth1, imageHeight1, "image2");
 			
 			long endTime = System.nanoTime();
 			long duration = (endTime - startTime);
