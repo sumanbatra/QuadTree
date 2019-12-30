@@ -1,7 +1,3 @@
-/**
- * @author ramkeerthyathinarayanan
- *
- */
 
 public class Coordinate {
 	int x;

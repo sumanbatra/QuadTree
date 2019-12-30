@@ -1,7 +1,4 @@
-/**
- * @author ramkeerthyathinarayanan
- *
- */
+
 
 public class Colour {
 	int alpha;

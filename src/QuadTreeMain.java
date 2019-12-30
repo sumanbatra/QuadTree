@@ -6,10 +6,7 @@ import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 
-/**
- * @author ramkeerthyathinarayanan
- *
- */
+
 
 public class QuadTreeMain {
 
@@ -75,6 +72,7 @@ public class QuadTreeMain {
 					img1.getHeight(), 
 					img1.getWidth());
 			
+			// For generating output images
 			BufferedImage outputImage = new BufferedImage(imageWidth1, imageHeight1, BufferedImage.TYPE_INT_RGB);
 			
 			for(int i = 0; i < imageWidth1; i++) {
