@@ -1,8 +1,3 @@
-/**
- * @author ramkeerthyathinarayanan
- *
- */
-
 public class MathematicalOperations {
 	public static int log(int x, int b) {
 		return (int) (Math.log(x) / Math.log(b));
